@@ -11,7 +11,9 @@
 ## Описание проекта
 
 Доработка проекта django_sprint1.
-Небольшая социальная сеть для публикации личных дневников. Данные для БД находятся в файле db.json.  
+Небольшая социальная сеть для публикации личных дневников. Данные для БД находятся в файле db.json.
+![image](https://github.com/RiSSoL-86/django_sprint3/assets/110422516/99f01781-dc7d-4715-9dc9-ada61b22ff0a)
+
 
 ## Как запустить проект:
 
@@ -22,17 +24,17 @@
 
 * Cоздать и активировать виртуальное окружение:
 
-        python3 -m venv env
+        python -m venv venv
         source venv/Scripts/activate
 
 * Установить зависимости из файла requirements.txt:
 
-        python3 -m pip install --upgrade pip
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
 
 * Выполнить миграции:
 
-        python3 manage.py migrate
+        python manage.py migrate
 
 * Загрузить фикстуры:
 
