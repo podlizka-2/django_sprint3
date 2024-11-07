@@ -1,15 +1,17 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from .constants import TEXT_LENGTH
+from .constants import TEXT_PER_PAGE
+
+
 User = get_user_model()
-TEXT_LENGTH = 256
 
-
-class BaseModel(models.Model):
+class PublishModel(models.Model):
     is_published = models.BooleanField(
         default=True,
         verbose_name='Опубликовано',
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
+        help_text=('Снимите галочку, чтобы скрыть публикацию.')[:TEXT_PER_PAGE]
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -20,38 +22,48 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class Category(BaseModel):
+
+class Category(PublishModel):
     title = models.CharField(max_length=TEXT_LENGTH, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(
         unique=True,
         verbose_name='Идентификатор',
-        help_text='Идентификатор страницы для URL; разрешены символы '
-                  'латиницы, цифры, дефис и подчёркивание.'
-    )
+        help_text=(
+            'Идентификатор страницы для URL;'
+            'разрешены символы, латиницы, цифры, дефис и подчёркивание.'
+    )[:TEXT_PER_PAGE])
 
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
+    def __str__(self):
+        return self.title
 
-class Location(BaseModel):
-    name = models.CharField(max_length=TEXT_LENGTH,
-                            verbose_name='Название места')
+class Location(PublishModel):
+    name = models.CharField(
+        max_length=TEXT_LENGTH,
+        verbose_name='Название места'
+    )
 
     class Meta:
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
 
+    def __str__(self):
+        return self.name
 
-class Post(BaseModel):
+
+class Post(PublishModel):
     title = models.CharField(max_length=TEXT_LENGTH, verbose_name='Заголовок')
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(
         verbose_name='Дата и время публикации',
-        help_text='Если установить дату и время в будущем — '
-                  'можно делать отложенные публикации.'
-    )
+        help_text=(
+            'Если установить дату и время в будущем — '
+            'можно делать отложенные публикации.'
+    )[:TEXT_PER_PAGE])
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -77,3 +89,6 @@ class Post(BaseModel):
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
         ordering = ['-pub_date']
+
+    def __str__(self):
+        return self.title
