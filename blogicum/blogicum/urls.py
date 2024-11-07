@@ -5,5 +5,4 @@ urlpatterns = [
     path('pages/', include('pages.urls')),
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-
 ]
