@@ -28,7 +28,7 @@ class Category(PublishModel):
     slug = models.SlugField(
         unique=True,
         verbose_name='Идентификатор',
-        help_text='Идентификатор страницы для URL; разрешены символы,'
+        help_text='Идентификатор страницы для URL; разрешены символы'
                   'латиницы, цифры, дефис и подчёркивание.'
     )
 
