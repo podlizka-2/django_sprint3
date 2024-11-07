@@ -22,7 +22,6 @@ class PublishModel(models.Model):
         abstract = True
 
 
-
 class Category(PublishModel):
     title = models.CharField(max_length=TEXT_LENGTH, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
