@@ -7,6 +7,7 @@ from .constants import TEXT_PER_PAGE
 
 User = get_user_model()
 
+
 class PublishModel(models.Model):
     is_published = models.BooleanField(
         default=True,
@@ -31,7 +32,8 @@ class Category(PublishModel):
         help_text=(
             'Идентификатор страницы для URL;'
             'разрешены символы, латиницы, цифры, дефис и подчёркивание.'
-    )[:TEXT_PER_PAGE])
+    )[:TEXT_PER_PAGE]
+    )
 
     class Meta:
         verbose_name = 'категория'
@@ -39,6 +41,7 @@ class Category(PublishModel):
 
     def __str__(self):
         return self.title
+
 
 class Location(PublishModel):
     name = models.CharField(
@@ -62,7 +65,8 @@ class Post(PublishModel):
         help_text=(
             'Если установить дату и время в будущем — '
             'можно делать отложенные публикации.'
-    )[:TEXT_PER_PAGE])
+    )[:TEXT_PER_PAGE]
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
