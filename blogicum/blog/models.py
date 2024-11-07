@@ -32,7 +32,7 @@ class Category(PublishModel):
         help_text=(
             'Идентификатор страницы для URL;'
             'разрешены символы, латиницы, цифры, дефис и подчёркивание.'
-    )[:TEXT_PER_PAGE]
+            )[:TEXT_PER_PAGE]
     )
 
     class Meta:
@@ -65,7 +65,7 @@ class Post(PublishModel):
         help_text=(
             'Если установить дату и время в будущем — '
             'можно делать отложенные публикации.'
-    )[:TEXT_PER_PAGE]
+            )[:TEXT_PER_PAGE]
     )
     author = models.ForeignKey(
         User,
