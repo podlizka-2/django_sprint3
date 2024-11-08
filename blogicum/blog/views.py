@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
-from .models import Post, Category
+from .models import Category, Post
 from .constants import POSTS_PER_PAGE
 
 
-def get():
+def get_pub_post():
     """Получение постов из БД."""
     return Post.objects.select_related(
         'category',
@@ -22,12 +22,12 @@ def index(request):
     """Главная страница / Лента записей."""
     return render(
         request, 'blog/index.html',
-        {'post_list': get()[:POSTS_PER_PAGE]})
+        {'post_list': get_pub_post()[:POSTS_PER_PAGE]})
 
 
 def post_detail(request, id):
     """Отображение полного описания выбранной записи."""
-    post = get_object_or_404(get(), id=id)
+    post = get_object_or_404(get_pub_post(), id=id)
     return render(request, 'blog/detail.html', {'post': post})
 
 
@@ -39,5 +39,5 @@ def category_posts(request, category_slug):
         is_published=True
     )
     context = {'category': category,
-               'post_list': get().filter(category=category)}
+               'post_list': get_pub_post().filter(category=category)}
     return render(request, 'blog/category.html', context)
